@@ -1,3 +1,6 @@
+# import sys
+# sys.path.append('/usr/local/lib/python2.7/site-packages')
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -19,9 +22,13 @@ def get_compare_results(img, reference, matches_to_use = 20, minimum_reference_d
 	else:
 		min_size = reference_size[0]
 
-
-	resize_ratio = minimum_reference_dimension/min_size
+	resize_ratio = float(minimum_reference_dimension)/float(min_size)
 	new_size = (int(reference.shape[1]*resize_ratio), int(reference.shape[0]*resize_ratio))
+
+	# reference = cv2.cvtColor(reference,cv2.COLOR_BGR2RGB)
+	# reference = Image.fromarray(reference)
+	# reference.thumbnail(new_size, Image.ANTIALIAS).convert('RGB')
+	# reference = reference[:, :, ::-1].copy() 
 
 	reference = cv2.resize(reference, new_size, interpolation = cv2.INTER_AREA)
 
